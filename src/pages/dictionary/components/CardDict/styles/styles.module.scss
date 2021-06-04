@@ -1,0 +1,53 @@
+.card {
+  width: 25%;
+  min-width: 300px;
+  &__container {
+    border-radius: 25px;
+    background-color: #ffffff;
+    padding: 30px;
+    box-shadow: 0 0 23px rgb(255 0 0 / 23%);
+    margin: 25px 15px;
+    height: 90%;
+    box-sizing: border-box;
+    &__wrapper {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      &__heading {
+        text-align: center;
+        font-size: 24px;
+      }
+      &__propsList {
+        list-style: none;
+        padding: 0;
+        &__prop {
+          display: flex;
+          justify-content: space-between;
+          &__name {
+            font-size: 16px;
+            font-weight: 700;
+          }
+          &__value {
+            font-size: 16px
+          }
+        }
+      }
+      &__containerPlus {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 70%;
+        span {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .card {
+    width: 100%;
+    min-width: auto;
+  }
+}
