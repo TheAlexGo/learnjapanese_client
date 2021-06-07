@@ -11,7 +11,9 @@ const Home = () => {
   const id_user = useSelector(state => state.client.id_user);
 
   useEffect(() => {
-    fetch(`/api/v0/dicts/${id_user}`).then(r => r.json()).then(data => dispatch(fillDict(data.data)));
+    fetch(`/api/v0/dicts/${id_user}`).then(r => r.json()).then(data => {
+      dispatch(fillDict(data.data))
+    });
   }, [dispatch, id_user])
 
   return(

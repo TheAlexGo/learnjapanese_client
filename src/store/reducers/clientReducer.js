@@ -70,6 +70,7 @@ const clientReducer = (state = defaultState, action) => {
         ...state,
         dict: action.payload.dict.map(dict => {
           const new_dict = {};
+          new_dict.id = dict.id;
           new_dict.id_dict = dict.id_dict;
           new_dict.name = dict.name;
           new_dict.description = dict.description;
@@ -90,10 +91,11 @@ const clientReducer = (state = defaultState, action) => {
         })
       }
     case USER_ADD_WORD:
+      console.log(action.payload);
       return {
         ...state,
         dict: state.dict.map(dict => {
-          if(dict.id_dict === Number(action.payload.id_dict)) {
+          if(dict.id === Number(action.payload.id_dict)) {
             dict.words.push({
               id_word: action.payload.id_word,
               value: action.payload.value,
@@ -111,7 +113,7 @@ const clientReducer = (state = defaultState, action) => {
       return {
         ...state,
         dict: state.dict.map(dict => {
-          if(dict.id_dict === Number(action.payload.id_dict)) {
+          if(dict.id === Number(action.payload.id_dict)) {
             dict.words.map(word => {
               if(word.id_word === action.payload.id_word) {
                 word.value = action.payload.value;
@@ -133,7 +135,7 @@ const clientReducer = (state = defaultState, action) => {
       return {
         ...state,
         dict: state.dict.map(dict => {
-          if(dict.id_dict === action.payload.id_dict) {
+          if(dict.id === action.payload.id_dict) {
             dict.words = action.payload.words.map(word => {
               word.active = true;
               return word;

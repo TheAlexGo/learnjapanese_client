@@ -2,8 +2,16 @@ import styles from "./styles/styles.module.scss";
 import formUrlEncoded from "form-urlencoded";
 import {useState} from "react";
 import {T_CANCEL, T_EDIT} from "../../../../constants/system_word";
+import {useParams} from "react-router-dom";
+import {store} from "../../../../store/store";
+import {useSelector} from "react-redux";
 
 const EditWordForm = ({callback, value, translate, id_word, updateCard}) => {
+  const { id } = useParams();
+  const id_user = useSelector(state => state.client.id_user);
+  const allDict = useSelector(state => state.client.dict);
+  const crDict = allDict.find(dict => dict.id_dict === Number(id));
+  const id_dict = crDict.id;
   const [newValue, setNewValue] = useState(value);
   const [newTranslate, setNewTranslate] = useState(translate);
   const handlerSubmit = (e) => {
@@ -43,7 +51,7 @@ const EditWordForm = ({callback, value, translate, id_word, updateCard}) => {
     <div className={styles.card}>
       <div className={styles.card__container}>
         <div className={styles.card__container__wrapper}>
-          <form action={`/api/v0/words/${id_word}/update`} method="PUT" onSubmit={handlerSubmit}>
+          <form action={`/api/v0/dicts/${id_user}/${id_dict}/words/${id_word}/update`} method="PUT" onSubmit={handlerSubmit}>
             <div className="uk-margin">
               <label className="uk-form-label" htmlFor="value">Слово на иностранном языке:</label>
               <div className="uk-form-controls">

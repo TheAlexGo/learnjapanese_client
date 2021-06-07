@@ -5,15 +5,15 @@ import formUrlEncoded from "form-urlencoded";
 import {createNewWord} from "../../../../store/actions/clientActions";
 
 const AddWordForm = ({id_dict}) => {
-
   const dispatch = useDispatch();
+  const id_user = store.getState().client.id_user;
+
   const handlerSubmit = (e) => {
     e.preventDefault();
 
     const link = e.target.action;
-    const id_user = store.getState().client.id_user;
     const allDict = store.getState().client.dict;
-    const crDict = allDict.find(dict => dict.id_dict === Number(id_dict));
+    const crDict = allDict.find(dict => dict.id === Number(id_dict));
     const dictWords = crDict.words;
     const id_word = dictWords[dictWords.length - 1].id_word;
 
@@ -43,7 +43,7 @@ const AddWordForm = ({id_dict}) => {
     <div className={styles.card}>
       <div className={styles.card__container}>
         <div className={styles.card__container__wrapper}>
-          <form action="/api/v0/words/add" method="PUT" onSubmit={handlerSubmit}>
+          <form action={`/api/v0/dicts/${id_user}/${id_dict}/words/add`} method="PUT" onSubmit={handlerSubmit}>
             <div className="uk-margin">
               <label className="uk-form-label" htmlFor="value">Слово на иностранном языке:</label>
               <div className="uk-form-controls">

@@ -6,8 +6,11 @@ import Translate from "./Translate";
 import DataSite from "../../controllers/DataSite/DataSite";
 import {T_CHECK} from "../../constants/system_word";
 import formUrlEncoded from "form-urlencoded";
+import {useSelector} from "react-redux";
+import {useParams} from "react-router-dom";
 
 const WordCard = ({word, translate, id, srcAudio}) => {
+
   const [readingRomaji, setReadingRomaji] = useState("");
   const [audioSrc, setAudioSrc] = useState("");
 
@@ -15,6 +18,8 @@ const WordCard = ({word, translate, id, srcAudio}) => {
   const [activeRomaji, setActiveRomaji] = useState(false);
   const [isCheck, setIsCheck] = useState(false);
 
+  const id_user = useSelector(state => state.client.id_user);
+  const id_dict = useParams().id;
 
   useEffect(() => {
     if(!word) return;
@@ -29,7 +34,7 @@ const WordCard = ({word, translate, id, srcAudio}) => {
         src = await dataSite.textToSpeech(text);
         const data = new FormData();
         data.src_audio = src;
-        await fetch(`/api/v0/words/${id}/addAudioSrc`, {
+        await fetch(`/api/v0/dicts/${id_user}/${id_dict}/words/${id}/addAudioSrc`, {
           "method": "PUT",
           "headers": { 'content-type': 'application/x-www-form-urlencoded' },
           "body": formUrlEncoded(data)

@@ -1,6 +1,6 @@
 class DataSite {
   constructor() {
-    this.corsUrl = "http://localhost:8080/"; // ссылка на сервер с cors-anywhere
+    this.corsUrl = "https://cors-anywhere.thealexgo.ru/"; // ссылка на сервер с cors-anywhere
   }
 
   /**
