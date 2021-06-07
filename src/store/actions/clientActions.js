@@ -36,54 +36,35 @@ export const unAuth = () => (
  * @returns {{payload: {}, type}}
  * @constructor
  */
-export const AddDictForm = (id_dict) => (
+export const AddDictForm = () => (
   {
     type: USER_ADD_DICT,
-    payload: {
-      id_dict: id_dict,
-      props: [],
-      active: false
-    }
+    payload: {}
   }
 )
 
 /**
- * Создание нового словаря
- * @param name
- * @param desc
- * @param lang
- * @param type
- * @param id_dict
- * @returns {{payload: {id_dict, name, lang, type, desc}, type: string}}
+ * Создание нового словаря-
+ * @returns
  */
-export const createNewDict = (name, desc, lang, type, id_dict) => (
+export const createNewDict = () => (
   {
     type: USER_CREATE_NEW_DICT,
-    payload: {
-      name: name,
-      desc: desc,
-      lang: lang,
-      type: type,
-      id_dict: id_dict
-    }
+    payload: {}
   }
 )
 
 /**
  * Создание шаблона слова
  * @param id_dict
- * @param id_word
  * @returns {{payload: {id_dict, active: boolean, props: *[]}, type: string}}
  * @constructor
  */
-export const AddWordForm = (id_dict, id_word) => (
+export const AddWordForm = (id_dict) => (
   {
     type: USER_ADD_WORD,
     payload: {
       id_dict: id_dict,
-      id_word: id_word,
-      value: '',
-      translate: '',
       active: false
     }
   }
@@ -91,22 +72,12 @@ export const AddWordForm = (id_dict, id_word) => (
 
 /**
  * Создание нового слова
- * @param value
- * @param translate
- * @param id_dict
- * @param id_word
  * @returns {{payload: {id_dict, value, translate}, type: string}}
  */
-export const createNewWord = (value, translate, id_dict, id_word, id) => (
+export const createNewWord = () => (
   {
     type: USER_CREATE_NEW_WORD,
-    payload: {
-      value: value,
-      translate: translate,
-      id_dict: id_dict,
-      id_word: id_word,
-      id: id
-    }
+    payload: {}
   }
 )
 

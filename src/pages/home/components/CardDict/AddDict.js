@@ -7,8 +7,8 @@ const AddDict = () => {
   const dispatch = useDispatch();
   const clickHandler = () => {
     const id_user = store.getState().client.id_user;
-    fetch(`/api/v0/dicts/${id_user}`).then((data) => data.json()).then(data => {
-      dispatch(AddDictForm(data.data[data.data.length - 1]?.id_dict + 1 || 0 ));
+    fetch(`/api/v0/dicts/${id_user}`).then((data) => data.json()).then(() => {
+      dispatch(AddDictForm());
     })
   }
   return(

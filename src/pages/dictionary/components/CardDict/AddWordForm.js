@@ -2,13 +2,13 @@ import styles from "./styles/styles.module.scss";
 import {useDispatch} from "react-redux";
 import {store} from "../../../../store/store";
 import formUrlEncoded from "form-urlencoded";
-import {createNewWord} from "../../../../store/actions/clientActions";
+import {createNewWord, fillWord} from "../../../../store/actions/clientActions";
 
 const AddWordForm = ({id_dict}) => {
   const dispatch = useDispatch();
   const id_user = store.getState().client.id_user;
 
-  const handlerSubmit = (e) => {
+  const submitForm = (e) => {
     e.preventDefault();
 
     const link = e.target.action;
@@ -31,7 +31,11 @@ const AddWordForm = ({id_dict}) => {
     })
       .then(r => r.json()).then(r => {
       if(r.success) {
-        dispatch(createNewWord(data.value, data.translate, id_dict, id_word ));
+        fetch(`/api/v0/dicts/${id_user}/${id_dict}/words`).then(r => r.json())
+          .then(data => {
+            dispatch(fillWord(id_dict, data.data));
+            dispatch(createNewWord());
+          });
       } else {
         e.target.querySelectorAll('input').forEach(
           input => input.classList.add('uk-form-danger')
@@ -43,7 +47,7 @@ const AddWordForm = ({id_dict}) => {
     <div className={styles.card}>
       <div className={styles.card__container}>
         <div className={styles.card__container__wrapper}>
-          <form action={`/api/v0/dicts/${id_user}/${id_dict}/words/add`} method="PUT" onSubmit={handlerSubmit}>
+          <form action={`/api/v0/dicts/${id_user}/${id_dict}/words/add`} method="PUT" onSubmit={submitForm}>
             <div className="uk-margin">
               <label className="uk-form-label" htmlFor="value">Слово на иностранном языке:</label>
               <div className="uk-form-controls">

@@ -35,34 +35,12 @@ const clientReducer = (state = defaultState, action) => {
     case USER_ADD_DICT:
       return {
         ...state,
-        dict: [...state.dict, action.payload],
+        dict: [...state.dict, {active: false}],
         opportunityCreateDict: false
       };
     case USER_CREATE_NEW_DICT:
       return  {
         ...state,
-        dict: state.dict.map(dict => {
-          if(dict.id_dict === action.payload.id_dict) {
-            dict.name = action.payload.name;
-            dict.description = action.payload.desc;
-            dict.props = [
-              {
-                name: 'Язык',
-                value: action.payload.lang
-              },
-              {
-                name: 'Тип',
-                value: action.payload.type
-              }
-            ];
-            dict.words = [];
-            dict.active = true;
-            dict.link = `./dicts/${dict.id_dict}/`;
-            return dict;
-          } else {
-            return dict
-          }
-        }),
         opportunityCreateDict: true
       }
     case USER_FILL_DICT:
@@ -91,15 +69,11 @@ const clientReducer = (state = defaultState, action) => {
         })
       }
     case USER_ADD_WORD:
-      console.log(action.payload);
       return {
         ...state,
         dict: state.dict.map(dict => {
           if(dict.id === Number(action.payload.id_dict)) {
             dict.words.push({
-              id_word: action.payload.id_word,
-              value: action.payload.value,
-              translate: action.payload.translate,
               active: false
             });
             return dict;
@@ -112,23 +86,6 @@ const clientReducer = (state = defaultState, action) => {
     case USER_CREATE_NEW_WORD:
       return {
         ...state,
-        dict: state.dict.map(dict => {
-          if(dict.id === Number(action.payload.id_dict)) {
-            dict.words.map(word => {
-              if(word.id_word === action.payload.id_word) {
-                word.value = action.payload.value;
-                word.translate = action.payload.translate;
-                word.active = true;
-                return word;
-              } else {
-                return word;
-              }
-            })
-            return dict;
-          } else {
-            return dict;
-          }
-        }),
         opportunityCreateWord: true
       };
     case USER_FILL_WORD:
@@ -146,11 +103,6 @@ const clientReducer = (state = defaultState, action) => {
           }
         })
       };
-    case USER_WORDS_LENGTH:
-      return {
-        ...state,
-        wordsLength: action.payload.wordsLength
-      }
     default:
       return state;
   }
