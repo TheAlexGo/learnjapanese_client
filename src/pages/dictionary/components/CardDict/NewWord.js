@@ -2,12 +2,13 @@ import styles from './styles/styles.module.scss';
 import {useDispatch} from "react-redux";
 import {AddWordForm} from '../../../../store/actions/clientActions'
 import {store} from "../../../../store/store";
+import {URL_API} from "../../../../constants/system_settings";
 
 const NewWord = ({ id_dict }) => {
   const dispatch = useDispatch();
   const clickHandler = () => {
     const id_user = store.getState().client.id_user;
-    fetch(`/api/v0/dicts/${id_user}/${id_dict}/words`).then((data) => data.json()).then(() => {
+    fetch(`${URL_API}/api/v0/dicts/${id_user}/${id_dict}/words`).then((data) => data.json()).then(() => {
       dispatch(AddWordForm(id_dict));
     })
   }

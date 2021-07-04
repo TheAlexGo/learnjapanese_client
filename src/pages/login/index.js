@@ -5,8 +5,9 @@ import {useDispatch} from "react-redux";
 import {
   Link,
 } from "react-router-dom";
+import {URL_API} from "../../constants/system_settings";
 
-const Login = ({history}) => {
+const Login = () => {
   const dispatch = useDispatch();
 
   const submitHandler = (e) => {
@@ -46,7 +47,7 @@ const Login = ({history}) => {
           <h3 className={styles.auth__container__wrapper__heading}>
             Войти
           </h3>
-          <form action="/api/v0/auth/login" method="POST" onSubmit={submitHandler}>
+          <form action={`${URL_API}/api/v0/auth/login`} method="POST" onSubmit={submitHandler}>
             <div className="uk-margin">
               <label className="uk-form-label" htmlFor="login">Логин:</label>
               <div className="uk-form-controls">

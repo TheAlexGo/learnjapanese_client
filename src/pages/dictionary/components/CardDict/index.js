@@ -9,8 +9,8 @@ const CardWord = ({data, id_dict, callback}) => {
 
   if(active) {
       return isEdit ?
-        <EditWordForm updateCard={callback} callback={setIsEdit} value={value} translate={translate} id_word={id} /> :
-        <ContentWord updateCard={callback} callback={setIsEdit} value={value} translate={translate} id_word={id} />
+        <EditWordForm updateCard={callback} setIsEdit={setIsEdit} value={value} translate={translate} id_word={id} /> :
+        <ContentWord updateCard={callback} setIsEdit={setIsEdit} value={value} translate={translate} id_word={id} />
   } else {
     return <AddWordForm id_dict={id_dict}/>;
   }

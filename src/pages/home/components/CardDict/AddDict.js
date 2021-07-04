@@ -2,12 +2,13 @@ import styles from './styles/styles.module.scss';
 import {useDispatch} from "react-redux";
 import {AddDictForm} from '../../../../store/actions/clientActions'
 import {store} from "../../../../store/store";
+import {URL_API} from "../../../../constants/system_settings";
 
 const AddDict = () => {
   const dispatch = useDispatch();
   const clickHandler = () => {
     const id_user = store.getState().client.id_user;
-    fetch(`/api/v0/dicts/${id_user}`).then((data) => data.json()).then(() => {
+    fetch(`${URL_API}/api/v0/dicts/${id_user}`).then((data) => data.json()).then(() => {
       dispatch(AddDictForm());
     })
   }

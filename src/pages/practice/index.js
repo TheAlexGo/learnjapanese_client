@@ -47,13 +47,13 @@ const Practice = ({history}) => {
   return(
     <div className={styles.home}>
       <div className={styles.home__container}>
-        <div className={`${styles.home__container__wrapper} uk-position-relative`}>
+        <div className={styles.home__container__wrapper}>
           <h1 className={styles.home__container__wrapper__heading}>Практика</h1>
           {isEnd ?
-            <button onClick={() => history.goBack()} className="uk-button uk-button-danger uk-position-right">
+            <button onClick={() => history.goBack()} className="uk-button uk-button-danger">
               { T_END_PRACTICE }
             </button> :
-            <button onClick={nextWord} className="uk-button uk-button-danger uk-position-right">
+            <button onClick={nextWord} className="uk-button uk-button-danger">
               { T_NEXT_PRACTICE }
             </button>
           }

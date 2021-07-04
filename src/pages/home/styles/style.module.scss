@@ -9,13 +9,15 @@
     margin: 25px 0;
     &__wrapper {
       display: flex;
-      justify-content: center;
-      flex-direction: column;
+      justify-content: space-between;
       &__heading {
         font-size: 32px;
         text-align: center;
         font-weight: 700;
         margin: 0;
+      }
+      button {
+        max-width: 200px;
       }
     }
   }

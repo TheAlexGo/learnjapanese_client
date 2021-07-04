@@ -3,6 +3,7 @@ import styles from './styles/style.module.scss';
 import CardDicts from './components/CardDicts';
 import {fillDict} from "../../store/actions/clientActions";
 import {useEffect, useState} from "react";
+import {URL_API} from "../../constants/system_settings";
 
 const Home = () => {
   const [isLoadDicts, setIsLoadDicts] = useState(true);
@@ -13,7 +14,7 @@ const Home = () => {
 
   useEffect(() => {
     if(isLoadDicts) {
-      fetch(`/api/v0/dicts/${id_user}`).then(r => r.json()).then(data => {
+      fetch(`${URL_API}/api/v0/dicts/${id_user}`).then(r => r.json()).then(data => {
         dispatch(fillDict(data.data))
       });
       setIsLoadDicts(false);

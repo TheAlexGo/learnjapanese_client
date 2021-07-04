@@ -5,9 +5,11 @@ import Romaji from "./Romaji";
 import Translate from "./Translate";
 import DataSite from "../../controllers/DataSite/DataSite";
 import {T_CHECK} from "../../constants/system_word";
-import formUrlEncoded from "form-urlencoded";
+// import formUrlEncoded from "form-urlencoded";
 import {useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
+import {URL_API, URL_CONTENT} from "../../constants/system_settings";
+import formUrlEncoded from "form-urlencoded";
 
 const WordCard = ({word, translate, id, srcAudio}) => {
 
@@ -34,13 +36,13 @@ const WordCard = ({word, translate, id, srcAudio}) => {
         src = await dataSite.textToSpeech(text);
         const data = new FormData();
         data.src_audio = src;
-        await fetch(`/api/v0/dicts/${id_user}/${id_dict}/words/${id}/addAudioSrc`, {
+        await fetch(`${URL_API}/api/v0/dicts/${id_user}/${id_dict}/words/${id}/addAudioSrc`, {
           "method": "PUT",
           "headers": { 'content-type': 'application/x-www-form-urlencoded' },
           "body": formUrlEncoded(data)
         });
       } else {
-        src = srcAudio;
+        src = URL_CONTENT+srcAudio;
       }
 
       setAudioSrc(src);
@@ -55,7 +57,7 @@ const WordCard = ({word, translate, id, srcAudio}) => {
 
     goToRomaji(word).then();
     textToSpeech(word).then();
-  }, [id, srcAudio, word]);
+  }, [id, id_dict, id_user, srcAudio, word]);
 
   return (
     <div className={styles.card}>

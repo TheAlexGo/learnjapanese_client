@@ -2,6 +2,7 @@ import styles from "./styles/styles.module.scss";
 import formUrlEncoded from "form-urlencoded";
 import {createNewDict, fillDict} from "../../../../store/actions/clientActions";
 import {useDispatch, useSelector} from "react-redux";
+import {URL_API} from "../../../../constants/system_settings";
 
 const CreateCard = ({id_user}) => {
   const allDict = useSelector(state => state.client.dict);
@@ -23,7 +24,7 @@ const CreateCard = ({id_user}) => {
       "body": formUrlEncoded(data)
     }).then(r => r.json()).then(r => {
       if(r.success) {
-        fetch(`/api/v0/dicts/${id_user}`).then(r => r.json()).then(data => {
+        fetch(`${URL_API}/api/v0/dicts/${id_user}`).then(r => r.json()).then(data => {
           dispatch(fillDict(data.data))
           dispatch(createNewDict());
         });
@@ -38,7 +39,7 @@ const CreateCard = ({id_user}) => {
     <div className={styles.card}>
       <div className={styles.card__container}>
         <div className={styles.card__container__wrapper}>
-          <form action={`/api/v0/dicts/${id_user}/add`} method="PUT" onSubmit={submitForm}>
+          <form action={`${URL_API}/api/v0/dicts/${id_user}/add`} method="PUT" onSubmit={submitForm}>
             <div className="uk-margin">
               <label className="uk-form-label" htmlFor="nameDict">Название</label>
               <div className="uk-form-controls">
@@ -51,7 +52,7 @@ const CreateCard = ({id_user}) => {
               <label className="uk-form-label" htmlFor="desc">Описание:</label>
               <div className="uk-form-controls">
                 <div className="uk-inline uk-width-1-1">
-                  <input className="uk-input" type="text" id="desc" name="desc" />
+                  <textarea className="uk-input" id="desc" name="desc" rows="10" />
                 </div>
               </div>
             </div>

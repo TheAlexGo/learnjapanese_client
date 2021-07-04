@@ -35,10 +35,16 @@
             display: flex;
             justify-content: flex-start;
             align-items: center;
+            width: 100%;
             span {
               font-weight: bold;
               min-width: 195px;
               text-align: left;
+            }
+          }
+          &__audio {
+            audio {
+              width: 100%;
             }
           }
         }

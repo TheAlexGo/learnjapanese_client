@@ -2,13 +2,9 @@ import styles from '../login/styles/styles.module.scss';
 import {
   Link,
 } from "react-router-dom";
+import {URL_API} from "../../constants/system_settings";
 
 const Register = ({history}) => {
-  const token = localStorage.token;
-  if(token) {
-    // history.push('/home');
-  }
-
   const submitHandler = (e) => {
     const link = e.target.action;
     const method = e.target.method;
@@ -44,7 +40,7 @@ const Register = ({history}) => {
           <h3 className={styles.auth__container__wrapper__heading}>
             Регистрация
           </h3>
-          <form action="/api/v0/auth/register" method="POST" onSubmit={submitHandler}>
+          <form action={`${URL_API}/api/v0/auth/register`} method="POST" onSubmit={submitHandler}>
             <div className="uk-margin">
               <label className="uk-form-label" htmlFor="login">Логин:</label>
               <div className="uk-form-controls">

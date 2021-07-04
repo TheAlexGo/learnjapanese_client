@@ -1,12 +1,12 @@
 import styles from "./styles/styles.module.scss";
 import formUrlEncoded from "form-urlencoded";
 import {useState} from "react";
-import {T_CANCEL, T_EDIT} from "../../../../constants/system_word";
+import {T_CANCEL, T_SAVE} from "../../../../constants/system_word";
 import {useParams} from "react-router-dom";
-import {store} from "../../../../store/store";
 import {useSelector} from "react-redux";
+import {URL_API} from "../../../../constants/system_settings";
 
-const EditWordForm = ({callback, value, translate, id_word, updateCard}) => {
+const EditWordForm = ({setIsEdit, value, translate, id_word, updateCard}) => {
   const { id } = useParams();
   const id_user = useSelector(state => state.client.id_user);
   const allDict = useSelector(state => state.client.dict);
@@ -14,7 +14,7 @@ const EditWordForm = ({callback, value, translate, id_word, updateCard}) => {
   const id_dict = crDict.id;
   const [newValue, setNewValue] = useState(value);
   const [newTranslate, setNewTranslate] = useState(translate);
-  const handlerSubmit = (e) => {
+  const submitForm = (e) => {
     e.preventDefault();
 
     const link = e.target.action;
@@ -36,10 +36,10 @@ const EditWordForm = ({callback, value, translate, id_word, updateCard}) => {
         updateCard(true);
       }
     });
-    callback(false);
+    setIsEdit(false);
   }
   const cancelEdit = () => {
-    callback(false);
+    setIsEdit(false);
   }
   const editValue = (e) => {
     setNewValue(e.target.value);
@@ -51,7 +51,7 @@ const EditWordForm = ({callback, value, translate, id_word, updateCard}) => {
     <div className={styles.card}>
       <div className={styles.card__container}>
         <div className={styles.card__container__wrapper}>
-          <form action={`/api/v0/dicts/${id_user}/${id_dict}/words/${id_word}/update`} method="PUT" onSubmit={handlerSubmit}>
+          <form action={`${URL_API}/api/v0/dicts/${id_user}/${id_dict}/words/${id_word}/update`} method="PUT" onSubmit={submitForm}>
             <div className="uk-margin">
               <label className="uk-form-label" htmlFor="value">Слово на иностранном языке:</label>
               <div className="uk-form-controls">
@@ -83,7 +83,7 @@ const EditWordForm = ({callback, value, translate, id_word, updateCard}) => {
               </div>
             </div>
             <button className="uk-button uk-button-danger uk-width-1-1 uk-margin" type="submit">
-              { T_EDIT }
+              { T_SAVE }
             </button>
             <button onClick={cancelEdit} className="uk-button uk-button-danger uk-width-1-1">
               { T_CANCEL }

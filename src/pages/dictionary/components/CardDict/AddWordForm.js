@@ -3,6 +3,7 @@ import {useDispatch} from "react-redux";
 import {store} from "../../../../store/store";
 import formUrlEncoded from "form-urlencoded";
 import {createNewWord, fillWord} from "../../../../store/actions/clientActions";
+import {URL_API} from "../../../../constants/system_settings";
 
 const AddWordForm = ({id_dict}) => {
   const dispatch = useDispatch();
@@ -31,7 +32,7 @@ const AddWordForm = ({id_dict}) => {
     })
       .then(r => r.json()).then(r => {
       if(r.success) {
-        fetch(`/api/v0/dicts/${id_user}/${id_dict}/words`).then(r => r.json())
+        fetch(`${URL_API}/api/v0/dicts/${id_user}/${id_dict}/words`).then(r => r.json())
           .then(data => {
             dispatch(fillWord(id_dict, data.data));
             dispatch(createNewWord());
@@ -47,7 +48,7 @@ const AddWordForm = ({id_dict}) => {
     <div className={styles.card}>
       <div className={styles.card__container}>
         <div className={styles.card__container__wrapper}>
-          <form action={`/api/v0/dicts/${id_user}/${id_dict}/words/add`} method="PUT" onSubmit={submitForm}>
+          <form action={`${URL_API}/api/v0/dicts/${id_user}/${id_dict}/words/add`} method="PUT" onSubmit={submitForm}>
             <div className="uk-margin">
               <label className="uk-form-label" htmlFor="value">Слово на иностранном языке:</label>
               <div className="uk-form-controls">

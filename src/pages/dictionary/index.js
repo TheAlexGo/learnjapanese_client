@@ -5,6 +5,7 @@ import {useParams, Link} from "react-router-dom";
 import CardWords from "./components/CardWords";
 import {fillWord} from "../../store/actions/clientActions";
 import {T_PRACTICE} from "../../constants/system_word";
+import {URL_API} from "../../constants/system_settings";
 
 const Dicts = () => {
   const { id } = useParams();
@@ -20,7 +21,7 @@ const Dicts = () => {
 
   useEffect(() => {
     if(isLoadContent) {
-      fetch(`/api/v0/dicts/${id_user}/${id_dict}/words`).then(r => r.json())
+      fetch(`${URL_API}/api/v0/dicts/${id_user}/${id_dict}/words`).then(r => r.json())
         .then(data => dispatch(fillWord(id_dict, data.data)));
       setIsLoadContent(false);
     }

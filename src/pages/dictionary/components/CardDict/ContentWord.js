@@ -2,15 +2,16 @@ import styles from "./styles/styles.module.scss";
 import {T_DELETE, T_EDIT} from "../../../../constants/system_word";
 import {useParams} from "react-router-dom";
 import {useSelector} from "react-redux";
+import {URL_API} from "../../../../constants/system_settings";
 
-const ContentWord = ({translate, value, callback, id_word, updateCard}) => {
+const ContentWord = ({translate, value, setIsEdit, id_word, updateCard}) => {
   const { id_dict } = useParams();
   const id_user = useSelector(state => state.client.id_user);
   const editWord = () => {
-    callback(true);
+    setIsEdit(true);
   }
   const deleteWord = () => {
-    fetch(`/api/v0/dicts/${id_user}/${id_dict}/words/${id_word}/remove`, {
+    fetch(`${URL_API}/api/v0/dicts/${id_user}/${id_dict}/words/${id_word}/remove`, {
       "method": "DELETE"
     }).then(() => {
       updateCard(true);
